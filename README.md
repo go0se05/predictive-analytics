@@ -67,6 +67,53 @@ Beberapa langkah EDA yang dilakukan:
 Berikut beberapa tahapan yang telah dilakukan:
 
 ![ss1](Visualisasi/ss1.jpg)
+### Distribusi Outlier
+#### `km_driven` (Jarak Tempuh)
+- **Jumlah outlier**: 166
+- **Rentang nilai outlier**: 0 - 2.0 juta km
+- **Interpretasi**:
+  - Mobil dengan jarak tempuh > 1.5 juta km termasuk sangat ekstrim
+  - Kemungkinan penyebab:
+    - Mobil tua yang masih digunakan (contoh: taksi/truk)
+    - Kesalahan input data (misal: 150,000 km → 1,500,000 km)
+
+#### `selling_price` (Harga Jual)
+- **Jumlah outlier**: 167  
+- **Rentang nilai outlier**: ₹0 - ₹10 juta
+- **Interpretasi**:
+  - Harga ≈₹0 mungkin:
+    - Giveaway/iklan promo
+    - Kesalahan input
+  - Harga >₹8 juta biasanya:
+    - Mobil mewah bekas (BMW, Mercedes)
+    - Mobil klasik langka
+---
+
+![ss2](Visualisasi/ss2.jpg)
+## Penanganan Outlier dengan Winsorization
+
+Setelah outlier teridentifikasi, kita melakukan **Winsorization** sebagai teknik penanganannya. Berbeda dengan metode trimming (menghapus data), Winsorization mengganti outlier dengan nilai ambang batas tertentu.
+
+Metode yang digunakan berbasis **Interquartile Range (IQR)**:
+- **Q1 (Kuartil 1)**: Nilai pada persentil ke-25
+- **Q3 (Kuartil 3)**: Nilai pada persentil ke-75
+- **IQR = Q3 - Q1**
+
+Batas bawah dan atas ditentukan dengan rumus:
+- Lower Bound = Q1 - 1.5 * IQR
+- Upper Bound = Q3 + 1.5 * IQR
+
+Setiap nilai yang lebih rendah dari batas bawah akan diubah menjadi nilai batas bawah, begitu juga dengan yang lebih tinggi dari batas atas.
+
+### Tujuan:
+- Mengurangi pengaruh outlier ekstrem tanpa mengorbankan jumlah data.
+- Menjaga integritas data agar tetap representatif.
+- Meningkatkan performa dan stabilitas model regresi di tahap selanjutnya.
+
+Metode ini sangat cocok jika data memiliki outlier tapi kita tidak ingin kehilangan informasi sebanyak saat menggunakan metode penghapusan (drop).
+
+![ss3](Visualisasi/Screenshot 2025-05-27 185952.jpg)
+
 
 ## Data Preprocessing
 
