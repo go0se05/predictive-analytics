@@ -58,15 +58,36 @@ Dataset yang digunakan dalam proyek ini berasal dari Kaggle dan berisi informasi
 
 Beberapa langkah EDA yang dilakukan:
 
-- Menampilkan ringkasan statistik deskriptif untuk kolom numerik.
-- Mengamati distribusi harga (`selling_price`) dan mendeteksi outlier.
-- Menilai distribusi `km_driven` yang memiliki skewness positif, lalu dilakukan log transformasi.
-- Mengubah `year` menjadi `car_age` untuk merepresentasikan umur mobil.
-- Menganalisis korelasi antar fitur numerik.
-
+1. Menampilkan ringkasan statistik deskriptif serta mengamati untuk kolom numerik (`selling_price`).
+  - **visualisasi Rata-rata harga jual berdasarkan merek mobil**
+  ![ss4](Visualisasi/ss4.jpg)
+  menganalisis **rata-rata harga jual mobil bekas** berdasarkan jumlah pemilik sebelumnya (_owner_), setelah dilakukan winsorization (penanganan outlier).
+  - **visualisasi Rata-rata harga jual berdasarkan jenis bahan bakar**
+  ![ss5](Visualisasi/ss5.jpg)
+   Bar plot ini memvisualisasikan rata-rata harga jual ('selling_price') untuk mobil berdasarkan jenis bahan bakarnya ('fuel').
+  - **Visualisasi Rata-rata harga jual mobil bekas berdasarkan owner**
+  ![ss6](Visualisasi/ss6.jpg)
+  Plot ini menunjukkan rata-rata harga jual ('selling_price') mobil berdasarkan kategori 'owner' (kepemilikan sebelumnya).
+ 
+2. Menganalisis korelasi antar fitur numerik.
+ - **Pair Plot of Target Features**
+  ![ss7](Visualisasi/ss7.jpg)
+  PairPlot berikut adalah beberapa insight yang bisa didapatkan mengenai hubungan antara km_driven (jarak tempuh) dan selling_price (harga jual):   
+ - **Correlation Matrix**
+ ![ss8](Visualisasi/ss8.jpg)
+ Heatmap ini menampilkan matriks korelasi antara dua variabel: 'selling_price' dan 'km_driven'. Penggunaan .abs() pada kode menunjukkan bahwa nilai yang ditampilkan adalah nilai absolut dari koefisien korelasi. Artinya, kita melihat kekuatan hubungan tanpa mempertimbangkan arahnya (positif atau negatif).
 Berikut beberapa tahapan yang telah dilakukan:
 
-![ss1](Visualisasi/ss1.jpg)
+## Data Preparation
+
+#### Data awal sebelum Handling Outlier
+Langkah-langkah preprocessing yang dilakukan:
+
+1. **Pembersihan Data**:
+   - Menghapus data duplikat (sebanyak 109 baris).
+   - Tidak ditemukan nilai kosong.
+2. **Detect and Handling Outlier **
+   ![ss1](Visualisasi/ss1.jpg)
 ### Distribusi Outlier
 #### `km_driven` (Jarak Tempuh)
 - **Jumlah outlier**: 166
@@ -89,6 +110,7 @@ Berikut beberapa tahapan yang telah dilakukan:
     - Mobil klasik langka
 ---
 
+#### Data sesudah Handling outlier
 ![ss2](Visualisasi/ss2.jpg)
 ## Penanganan Outlier dengan Winsorization
 
@@ -112,29 +134,18 @@ Setiap nilai yang lebih rendah dari batas bawah akan diubah menjadi nilai batas 
 
 Metode ini sangat cocok jika data memiliki outlier tapi kita tidak ingin kehilangan informasi sebanyak saat menggunakan metode penghapusan (drop).
 
-![ss3](Visualisasi/Screenshot 2025-05-27 185952.jpg)
-
-
-## Data Preprocessing
-
-Langkah-langkah preprocessing yang dilakukan:
-
-1. **Pembersihan Data**:
-   - Menghapus data duplikat (sebanyak 109 baris).
-   - Tidak ditemukan nilai kosong.
-
-2. **Feature Engineering**:
+3. **Feature Engineering**:
    - Ekstraksi `brand` dari kolom `name`.
    - Penghapusan kolom `name` setelah ekstraksi `brand`.
 
-3. **Encoding**:
+4. **Encoding**:
    - Menggunakan `OneHotEncoder` untuk fitur kategorikal: `fuel`, `seller_type`, `transmission`, `owner`, dan `brand`.
 
-4. **Transformasi Numerik**:
+5. **Transformasi Numerik**:
    - Melakukan log transformasi pada `km_driven`.
    - Melakukan normalisasi menggunakan `StandardScaler`.
 
-5. **Splitting**:
+6. **Splitting**:
    - Data dibagi menjadi training dan test set dengan rasio 80:20 menggunakan `train_test_split`.
 
 ## Modelling
@@ -180,11 +191,15 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 | KNN                       | 33,872,041.65    | 39,428,361.48  |
 | Random Forest             | 26,379,393.65    | 40,818,716.80  |
 | Boosting (Original)       | 63,513,173.02    | 64,366,053.76  |
+![ss9](Visualisasi/ss9.jpg)
+*Visualisasi MSE*
 
 | Model               | RMSE (Train) | RMSE (Test) | R² (Train) | R² (Test) |
 | :------------------ | :----------- | :---------- | :--------- | :-------- |
 | Random Forest Tuned | 140,567.89   | 175,234.56  | 0.77       | 0.64      |
 | Boosting Tuned      | 176,066.13   | 193,574.27  | 0.72       | 0.67      |
+![ss10](Visualisasi/ss10.jpg)
+*Visualisasi RMSE & R2*
 
 Hasil menunjukkan bahwa model cukup baik dalam menjelaskan variasi harga mobil bekas. Namun, masih terdapat kemungkinan untuk meningkatkan performa dengan algoritma lain seperti Ridge Regression, Lasso Regression, XGBoost, serta melakukan hyperparameter tuning.
 
@@ -193,3 +208,4 @@ Hasil menunjukkan bahwa model cukup baik dalam menjelaskan variasi harga mobil b
 Model linear regression berhasil membangun prediksi harga mobil bekas dengan akurasi yang cukup tinggi (R² = 0.77). Fitur-fitur seperti `km_driven`, `brand`, dan `km_driven` menjadi faktor dominan dalam penentuan harga.
 Model ini memberikan dasar yang baik untuk pengembangan sistem pricing otomatis dalam platform jual-beli mobil bekas.
 
+[|]: Model yang dikembangkan telah mencapai standar Minimum Viable Product (MVP) yang ditetapkan, sehingga dapat segera digabungkan dengan infrastruktur penilaian kredit yang sudah berjalan.
