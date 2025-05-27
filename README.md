@@ -65,6 +65,7 @@ Beberapa langkah EDA yang dilakukan:
 - Menganalisis korelasi antar fitur numerik.
 
 Berikut beberapa tahapan yang telah dilakukan:
+
 ![Screenshot](C:\Users\nofen\Submission\Visualiasi\ss1.jpg)
 
 ## Data Preprocessing
