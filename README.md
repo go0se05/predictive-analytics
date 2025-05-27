@@ -135,18 +135,17 @@ Setiap nilai yang lebih rendah dari batas bawah akan diubah menjadi nilai batas 
 Metode ini sangat cocok jika data memiliki outlier tapi kita tidak ingin kehilangan informasi sebanyak saat menggunakan metode penghapusan (drop).
 
 3. **Feature Engineering**:
-   - Ekstraksi `brand` dari kolom `name`.
-   - Penghapusan kolom `name` setelah ekstraksi `brand`.
+   - Memisahkan target agar tidak ikut encode
 
 4. **Encoding**:
-   - Menggunakan `OneHotEncoder` untuk fitur kategorikal: `fuel`, `seller_type`, `transmission`, `owner`, dan `brand`.
+   - Menggunakan `OneHotEncoder` untuk fitur kategorikal: `fuel`, `owner`, dan `brand`.
 
 5. **Transformasi Numerik**:
    - Melakukan log transformasi pada `km_driven`.
    - Melakukan normalisasi menggunakan `StandardScaler`.
 
 6. **Splitting**:
-   - Data dibagi menjadi training dan test set dengan rasio 80:20 menggunakan `train_test_split`.
+   - Data dibagi menjadi training dan test set dengan rasio 90:10 menggunakan `train_test_split`.
 
 ## Modelling
 
