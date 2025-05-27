@@ -39,7 +39,7 @@ Untuk mencapai tujuan tersebut, langkah-langkah yang akan dilakukan meliputi:
 ## Data Understanding
 
 ### URL/tautan sumber data
-Dataset untuk prediksi risiko kredit ini dapat diunduh dari Kaggle: **[Link Dataset]**(https://www.kaggle.com/datasets/makslypko/cars-dataset/data)
+Dataset untuk prediksi risiko kredit ini dapat diunduh dari Kaggle: [Link Dataset](https://www.kaggle.com/datasets/makslypko/cars-dataset/data)
 
 #### **Dataset Awal**
 Dataset yang digunakan dalam proyek ini berasal dari Kaggle dan berisi informasi tentang mobil bekas, termasuk fitur-fitur seperti:
