@@ -66,7 +66,8 @@ Beberapa langkah EDA yang dilakukan:
 
 Berikut beberapa tahapan yang telah dilakukan:
 
-![Screenshot](C:\Users\nofen\Submission\Visualiasi\ss1.jpg)
+![ss1](predictive-analytics/Visualisasi
+/ss1.jpg)
 
 ## Data Preprocessing
 
