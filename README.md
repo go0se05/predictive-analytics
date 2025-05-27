@@ -66,8 +66,7 @@ Beberapa langkah EDA yang dilakukan:
 
 Berikut beberapa tahapan yang telah dilakukan:
 
-![ss1](predictive-analytics/Visualisasi
-/ss1.jpg)
+![ss1](Visualisasi/ss1.jpg)
 
 ## Data Preprocessing
 
