@@ -191,6 +191,7 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 | KNN                       | 33,872,041.65    | 39,428,361.48  |
 | Random Forest             | 26,379,393.65    | 40,818,716.80  |
 | Boosting (Original)       | 63,513,173.02    | 64,366,053.76  |
+
 ![ss9](Visualisasi/ss9.jpg)
 *Visualisasi MSE*
 
@@ -198,6 +199,7 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 | :------------------ | :----------- | :---------- | :--------- | :-------- |
 | Random Forest Tuned | 140,567.89   | 175,234.56  | 0.77       | 0.64      |
 | Boosting Tuned      | 176,066.13   | 193,574.27  | 0.72       | 0.67      |
+
 ![ss10](Visualisasi/ss10.jpg)
 *Visualisasi RMSE & R2*
 
