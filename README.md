@@ -193,6 +193,7 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 | Boosting (Original)       | 63,513,173.02    | 64,366,053.76  |
 
 ![ss9](Visualisasi/ss9.jpg)
+
 *Visualisasi MSE*
 
 | Model               | RMSE (Train) | RMSE (Test) | R² (Train) | R² (Test) |
@@ -201,6 +202,7 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 | Boosting Tuned      | 176,066.13   | 193,574.27  | 0.72       | 0.67      |
 
 ![ss10](Visualisasi/ss10.jpg)
+
 *Visualisasi RMSE & R2*
 
 Hasil menunjukkan bahwa model cukup baik dalam menjelaskan variasi harga mobil bekas. Namun, masih terdapat kemungkinan untuk meningkatkan performa dengan algoritma lain seperti Ridge Regression, Lasso Regression, XGBoost, serta melakukan hyperparameter tuning.
