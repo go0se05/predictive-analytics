@@ -208,4 +208,4 @@ Hasil menunjukkan bahwa model cukup baik dalam menjelaskan variasi harga mobil b
 Model linear regression berhasil membangun prediksi harga mobil bekas dengan akurasi yang cukup tinggi (R² = 0.77). Fitur-fitur seperti `km_driven`, `brand`, dan `km_driven` menjadi faktor dominan dalam penentuan harga.
 Model ini memberikan dasar yang baik untuk pengembangan sistem pricing otomatis dalam platform jual-beli mobil bekas.
 
-[|]: Model yang dikembangkan telah mencapai standar Minimum Viable Product (MVP) yang ditetapkan, sehingga dapat segera digabungkan dengan infrastruktur penilaian kredit yang sudah berjalan.
+[^|]: Model yang dikembangkan telah mencapai standar Minimum Viable Product (MVP) yang ditetapkan, sehingga dapat segera digabungkan dengan infrastruktur penilaian kredit yang sudah berjalan.
