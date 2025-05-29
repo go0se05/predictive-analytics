@@ -234,8 +234,8 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 
 | Model               | RMSE (Train) | RMSE (Test) | R² (Train) | R² (Test) |
 | :------------------ | :----------- | :---------- | :--------- | :-------- |
-| Random Forest Tuned | 158,303.89   | 197,115.49  | 0.77       | 0.64      |
-| Boosting Tuned      | 176,096.12   | 189,192.07  | 0.72       | 0.67      |
+| Random Forest Tuned | 158,303.89   | 201,539.50  | 0.77       | 0.64      |
+| Boosting Tuned      | 176,096.12   | 193,574.27  | 0.72       | 0.67      |
 
 ![ss10](Visualisasi/ss10.jpg)
 
