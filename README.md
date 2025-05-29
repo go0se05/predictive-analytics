@@ -147,7 +147,8 @@ Model yang digunakan adalah:
 
 Beberapa algoritma regresi digunakan untuk membangun model prediktif:
 
-1. **K-Nearest Neighbors (KNN)**:
+### 1. **K-Nearest Neighbors (KNN)**
+   
 K-Nearest Neighbors (KNN) merupakan salah satu algoritma supervised learning yang digunakan baik untuk klasifikasi maupun regresi. Pada kasus regresi, KNN memprediksi nilai target dengan menghitung rata-rata dari nilai-nilai target K tetangga terdekat yang paling mirip (berdasarkan jarak) dengan sampel yang akan diprediksi.
 
 Pada proyek ini, model KNN digunakan dengan menggunakan fungsi `KNeighborsRegressor` dari library scikit-learn. Parameter utama yang digunakan adalah sebagai berikut:
@@ -159,7 +160,8 @@ Algoritma ini sangat bergantung pada **skala fitur**, sehingga seluruh fitur num
 
 ---
 
-2. **Random Forest**:
+### 2. **Random Forest**
+   
 Random Forest adalah algoritma ensemble yang dibangun berdasarkan konsep **bagging** (Bootstrap Aggregating). Model ini terdiri dari sekumpulan decision tree yang dilatih secara independen dari sampel acak data, dan hasil prediksinya dirata-ratakan untuk regresi. Dengan pendekatan ini, Random Forest dapat **mengurangi variansi model**, sehingga lebih tahan terhadap overfitting dibandingkan dengan single decision tree.
 
 Model ini dibangun menggunakan `RandomForestRegressor` dari scikit-learn dengan parameter awal sebagai berikut:
@@ -176,7 +178,7 @@ Namun, performa model sangat bergantung pada pemilihan parameter seperti kedalam
 
 ---
 
-3. **AdaBoost**:
+### 3. **AdaBoost**
 
   AdaBoost (Adaptive Boosting) adalah algoritma boosting yang membangun sekumpulan **weak learner** secara berurutan, di mana setiap model selanjutnya difokuskan untuk memperbaiki kesalahan dari model sebelumnya. Model akhir merupakan kombinasi dari seluruh weak learner dengan bobot berdasarkan performa masing-masing.
 
@@ -189,7 +191,7 @@ Kelebihan utama AdaBoost terletak pada kemampuannya meningkatkan akurasi model s
 
 ---
 
-4. **Hyperparameter Tuning**:
+### 4. **Hyperparameter Tuning**
 
    Untuk meningkatkan performa model, dilakukan proses **hyperparameter tuning** menggunakan metode `GridSearchCV`. Metode ini menguji seluruh kombinasi dari parameter yang ditentukan dengan proses cross-validation untuk memilih parameter terbaik berdasarkan metrik performa rata-rata.
 
