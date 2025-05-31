@@ -58,6 +58,8 @@ Dataset yang digunakan dalam proyek ini berasal dari Kaggle dan berisi informasi
 Beberapa langkah EDA yang dilakukan:
 
 1. Menampilkan ringkasan statistik deskriptif serta mengamati untuk kolom numerik (`selling_price`).
+  -**Visualisasi Jumlah Mobil berdasarkan brand**
+   ![ss12](https://github.com/user-attachments/assets/a58385a3-eb34-4ebb-a4c5-9d460dcf3ece)
   - **visualisasi Rata-rata harga jual berdasarkan merek mobil**
   ![ss4](https://github.com/user-attachments/assets/ce9f613e-2093-4f0b-9a22-c57d316f4ead)
   menganalisis **rata-rata harga jual mobil bekas** berdasarkan jumlah pemilik sebelumnya (_owner_), setelah dilakukan winsorization (penanganan outlier).
@@ -70,10 +72,10 @@ Beberapa langkah EDA yang dilakukan:
  
 2. Menganalisis korelasi antar fitur numerik.
  - **Pair Plot of Target Features**
-  ![ss7](https://github.com/user-attachments/assets/d8824a46-4a44-4206-bade-76d28a311ccd)
+  ![ss7](https://github.com/user-attachments/assets/0a697296-34c6-4c28-8900-2bae81e087c8)
   PairPlot berikut adalah beberapa insight yang bisa didapatkan mengenai hubungan antara km_driven (jarak tempuh) dan selling_price (harga jual):   
  - **Correlation Matrix**
- ![ss8](https://github.com/user-attachments/assets/ec3b8531-860b-4203-8b69-24f3d6a3c7fc)
+ ![ss8](https://github.com/user-attachments/assets/717d2471-f6b1-433f-b22d-a80e8b66b9db)
  Heatmap ini menampilkan matriks korelasi antara dua variabel: 'selling_price' dan 'km_driven'. Penggunaan .abs() pada kode menunjukkan bahwa nilai yang ditampilkan adalah nilai absolut dari koefisien korelasi. Artinya, kita melihat kekuatan hubungan tanpa mempertimbangkan arahnya (positif atau negatif).
 Berikut beberapa tahapan yang telah dilakukan:
 
@@ -83,7 +85,8 @@ Berikut beberapa tahapan yang telah dilakukan:
 Langkah-langkah preprocessing yang dilakukan:
 
 1. **Pembersihan Data**:
-
+   * Melakukan duplikat cek dan menemukan 1678 data duplikat
+   *  Melakukan drop duplikat
    * Dataset tidak memiliki missing value sehingga tidak diperlukan teknik imputasi atau penghapusan data.
 
 2. **Deteksi dan Penanganan Outlier**:
@@ -247,9 +250,9 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 ### Hasil Evaluasi:
 | Model                     | MSE (Train)      | MSE (Test)     |
 | :------------------------ | :--------------- | :------------- |
-| KNN                       | 33,872,041.65    | 39,428,361.48  |
-| Random Forest             | 26,379,393.65    | 40,818,716.80  |
-| Boosting (Original)       | 63,513,173.02    | 64,366,053.76  |
+| KNN                       | 35,702,044.93    | 45,486,426.17  |
+| Random Forest             | 27,268,530.11    | 47,109,176.79  |
+| Boosting (Original)       | 57,408,545.46    | 56,083,611.26  |
 
 ![ss9](https://github.com/user-attachments/assets/2e991d43-5743-4e12-b52b-2f8fed2aa85c)
 
@@ -257,8 +260,8 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 
 | Model               | RMSE (Train) | RMSE (Test) | R² (Train) | R² (Test) |
 | :------------------ | :----------- | :---------- | :--------- | :-------- |
-| Random Forest Tuned | 158,303.89   | 201,539.50  | 0.77       | 0.64      |
-| Boosting Tuned      | 176,096.12   | 193,574.27  | 0.72       | 0.67      |
+| Random Forest Tuned | 188,352.78   | 215,080.72  | 0.60       | 0.49      |
+| Boosting Tuned      | 189,749.05   | 207,779.42  | 0.59       | 0.52      |
 
 ![ss10](https://github.com/user-attachments/assets/16e5947a-c2da-406e-9627-5627c7fee222)
 
