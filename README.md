@@ -59,21 +59,21 @@ Beberapa langkah EDA yang dilakukan:
 
 1. Menampilkan ringkasan statistik deskriptif serta mengamati untuk kolom numerik (`selling_price`).
   - **visualisasi Rata-rata harga jual berdasarkan merek mobil**
-  ![ss4](Visualisasi/ss4.jpg)
+  ![ss4](https://github.com/user-attachments/assets/ce9f613e-2093-4f0b-9a22-c57d316f4ead)
   menganalisis **rata-rata harga jual mobil bekas** berdasarkan jumlah pemilik sebelumnya (_owner_), setelah dilakukan winsorization (penanganan outlier).
   - **visualisasi Rata-rata harga jual berdasarkan jenis bahan bakar**
-  ![ss5](Visualisasi/ss5.jpg)
+ ![ss5](https://github.com/user-attachments/assets/9e90e095-d776-4c15-85e8-7937f63e2a91)
    Bar plot ini memvisualisasikan rata-rata harga jual ('selling_price') untuk mobil berdasarkan jenis bahan bakarnya ('fuel').
   - **Visualisasi Rata-rata harga jual mobil bekas berdasarkan owner**
-  ![ss6](Visualisasi/ss6.jpg)
+  ![ss6](https://github.com/user-attachments/assets/d50c8e20-ac72-44cd-a7ff-fc3e993b3570)
   Plot ini menunjukkan rata-rata harga jual ('selling_price') mobil berdasarkan kategori 'owner' (kepemilikan sebelumnya).
  
 2. Menganalisis korelasi antar fitur numerik.
  - **Pair Plot of Target Features**
-  ![ss7](Visualisasi/ss7.jpg)
+  ![ss7](https://github.com/user-attachments/assets/d8824a46-4a44-4206-bade-76d28a311ccd)
   PairPlot berikut adalah beberapa insight yang bisa didapatkan mengenai hubungan antara km_driven (jarak tempuh) dan selling_price (harga jual):   
  - **Correlation Matrix**
- ![ss8](Visualisasi/ss8.jpg)
+ ![ss8](https://github.com/user-attachments/assets/ec3b8531-860b-4203-8b69-24f3d6a3c7fc)
  Heatmap ini menampilkan matriks korelasi antara dua variabel: 'selling_price' dan 'km_driven'. Penggunaan .abs() pada kode menunjukkan bahwa nilai yang ditampilkan adalah nilai absolut dari koefisien korelasi. Artinya, kita melihat kekuatan hubungan tanpa mempertimbangkan arahnya (positif atau negatif).
 Berikut beberapa tahapan yang telah dilakukan:
 
@@ -91,7 +91,7 @@ Langkah-langkah preprocessing yang dilakukan:
    * Outlier terdeteksi pada kolom `km_driven` dan `selling_price`.
    * Digunakan metode **Winsorization** berbasis Interquartile Range (IQR), yang mengganti outlier ekstrem dengan nilai ambang batas bawah/atas.
    * Tujuannya untuk mengurangi pengaruh ekstrem tanpa membuang data.
-   ![ss1](Visualisasi/ss1.jpg)
+   ![ss1](https://github.com/user-attachments/assets/2bfbad08-5a87-4210-bc08-5cc5c358a238)
 ### Distribusi Outlier
 #### `km_driven` (Jarak Tempuh)
 - **Jumlah outlier**: 166
@@ -115,7 +115,7 @@ Langkah-langkah preprocessing yang dilakukan:
 ---
 
 #### Data sesudah Handling outlier
-![ss2](Visualisasi/ss2.jpg)
+![ss2](https://github.com/user-attachments/assets/7803b120-3f2c-40cc-95c1-191200255db7)
 ## Penanganan Outlier dengan Winsorization
 
 Setelah outlier teridentifikasi, kita melakukan **Winsorization** sebagai teknik penanganannya. Berbeda dengan metode trimming (menghapus data), Winsorization mengganti outlier dengan nilai ambang batas tertentu.
@@ -251,7 +251,7 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 | Random Forest             | 26,379,393.65    | 40,818,716.80  |
 | Boosting (Original)       | 63,513,173.02    | 64,366,053.76  |
 
-![ss9](Visualisasi/ss9.jpg)
+![ss9](https://github.com/user-attachments/assets/2e991d43-5743-4e12-b52b-2f8fed2aa85c)
 
 *Visualisasi MSE*
 
@@ -260,7 +260,7 @@ Evaluasi dilakukan menggunakan metrik regresi berikut:
 | Random Forest Tuned | 158,303.89   | 201,539.50  | 0.77       | 0.64      |
 | Boosting Tuned      | 176,096.12   | 193,574.27  | 0.72       | 0.67      |
 
-![ss10](Visualisasi/ss10.jpg)
+![ss10](https://github.com/user-attachments/assets/16e5947a-c2da-406e-9627-5627c7fee222)
 
 *Visualisasi RMSE & R2*
 
