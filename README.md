@@ -116,8 +116,12 @@ Langkah-langkah preprocessing yang dilakukan:
     - Mobil mewah bekas (BMW, Mercedes)
     - Mobil klasik langka
 ---
+#### Data sesudah Handling Duplicated & Missing Value
+
+Setelah teridentifikasi duplikat data, kita melakukan **drop_duplicated** sebagai teknik penanganannya dan data setelah dilakukannya drop duplicated kini menjadi 6450
 
 #### Data sesudah Handling outlier
+
 ![ss2](https://github.com/user-attachments/assets/7803b120-3f2c-40cc-95c1-191200255db7)
 ## Penanganan Outlier dengan Winsorization
 
