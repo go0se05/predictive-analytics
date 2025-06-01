@@ -1,291 +1,192 @@
 # Laporan Proyek Machine Learning - Nofendra Tahta Dirgantara
 
+---
+
 ## Domain Proyek
 
-### Latar Belakang
-Pasar mobil bekas mengalami pertumbuhan yang signifikan seiring dengan meningkatnya permintaan akan kendaraan pribadi yang terjangkau. Menentukan harga jual yang tepat untuk mobil bekas menjadi tantangan bagi penjual dan pembeli, karena melibatkan berbagai faktor seperti merek, model, tahun produksi, jarak tempuh, dan kondisi kendaraan. Kesalahan dalam penentuan harga dapat menyebabkan kerugian finansial atau kesulitan dalam menjual kendaraan.
-Dengan kemajuan teknologi, khususnya dalam bidang kecerdasan buatan dan machine learning, memungkinkan untuk membangun model prediktif yang dapat memperkirakan harga jual mobil bekas secara lebih akurat. Model ini dapat membantu pelaku industri otomotif, dealer, dan konsumen dalam membuat keputusan yang lebih informasional dan efisien.
-Model dikembangkan menggunakan pendekatan supervised learning dengan algoritma Linear Regression sebagai baseline. Evaluasi performa dilakukan menggunakan metrik regresi seperti MSE, RMSE, dan R².
+Pasar mobil bekas terus mengalami pertumbuhan yang signifikan seiring dengan meningkatnya kebutuhan kendaraan pribadi yang terjangkau. Menentukan harga jual mobil bekas menjadi tantangan, karena bergantung pada berbagai faktor seperti merek, model, jarak tempuh, dan kepemilikan sebelumnya. Kesalahan dalam estimasi harga dapat berdampak pada kerugian finansial dan efisiensi transaksi.
+Dengan perkembangan teknologi AI, khususnya machine learning, memungkinkan pembuatan model prediktif yang lebih akurat dan adaptif. Model ini sangat dibutuhkan oleh dealer, konsumen, dan pelaku industri otomotif untuk mengambil keputusan yang lebih cerdas dan efisien.
+
+---
 
 ## Business Understanding
 
-### Problem Statement
+### Problem Statements
 
-Berdasarkan latar belakang di atas, permasalahan yang ingin diselesaikan dalam proyek ini adalah:
-
-1. Bagaimana cara memprediksi harga mobil bekas berdasarkan atribut-atribut kendaraan yang tersedia?
-2. Apa saja fitur yang paling berpengaruh terhadap harga jual mobil?
-3. Seberapa baik performa model regresi yang dibangun dalam memprediksi harga mobil bekas?
+1. Bagaimana memprediksi harga jual mobil bekas dengan akurasi tinggi berdasarkan atribut kendaraan?
+2. Fitur apa saja yang paling berpengaruh terhadap harga jual mobil bekas?
+3. Model prediktif mana yang paling optimal untuk kebutuhan ini?
 
 ### Goals
 
-Tujuan dari proyek ini adalah:
+* Membangun model regresi yang akurat untuk memprediksi harga jual mobil bekas.
+* Mengidentifikasi fitur-fitur utama yang memengaruhi harga jual.
+* Mengevaluasi dan memilih model terbaik berdasarkan metrik regresi (RMSE & R²).
 
-- Membangun model regresi yang dapat memprediksi harga jual mobil bekas berdasarkan fitur-fitur seperti merek, model, tahun produksi, dan jarak tempuh.
-- Memprediksi harga mobil dengan mengeksplorasi fitur-fitur yang paling berkontribusi dalam penentuan harga jual.
-- Mengevaluasi dan membandingkan performa beberapa algoritma regresi untuk menentukan model terbaik dalam memprediksi harga mobil bekas.
-
-## Solution Statements
-
-Untuk mencapai tujuan tersebut, langkah-langkah yang akan dilakukan meliputi:
-
-- Melakukan analisis eksploratif pada data untuk memahami distribusi dan hubungan antar fitur serta pembersihan data yang diperlukan.
--  Melakukan pra-pemrosesan data, termasuk penanganan nilai hilang, outlier, encoding variabel kategorikal, dan normalisasi fitur numerik.
-- Membangun dan melatih beberapa model regresi, seperti K-Nearest Neighbors (KNN), Random Forest, dan AdaBoost dan mengevaluasinya dengan metrik MAE, MSE, RMSE, dan R².
-- Melakukan tuning hyperparameter menggunakan GridSearchCV untuk meningkatkan performa model.
--  Mengevaluasi model menggunakan metrik seperti Root Mean Squared Error (RMSE) dan R² Score
+---
 
 ## Data Understanding
 
-### URL/tautan sumber data
-Dataset untuk prediksi risiko kredit ini dapat diunduh dari Kaggle: [Link Dataset](https://www.kaggle.com/datasets/makslypko/cars-dataset/data)
+### Sumber Data
 
-#### **Dataset Awal**
-Dataset yang digunakan dalam proyek ini berasal dari Kaggle dan berisi informasi tentang mobil bekas, termasuk fitur-fitur seperti:
+Dataset diperoleh dari Kaggle: [Cars Dataset](https://www.kaggle.com/datasets/makslypko/cars-dataset/data).
 
-- Dataset terdiri dari **8128 baris dan 5 kolom**.
-- Tiga kolom bertipe **object (kategori)**: `brand`, `fuel`, dan `owner`.
-- Dua kolom bertipe **numerik** (`int64`): `km_driven` dan `selling_price`.
-- Tidak ditemukan **missing values**, yang merupakan hal positif karena tidak perlu melakukan imputasi data atau penghapusan baris/kolom.
+### Karakteristik Dataset
 
-#### **Variabel-variabel pada Credit Risk Dataset Awal:**
-* `brand`: Merk mobil
-* `selling_price`: Harga jual (target)
-* `km_driven`: Jarak tempuh (dalam kilometer)
-* `fuel`: Jenis bahan bakar
-* `owner`: Jumlah kepemilikan mobil sebelumnya
+* **Jumlah Baris**: 8.128
+* **Jumlah Kolom**: 5
+* **Fitur**:
 
-Beberapa langkah EDA yang dilakukan:
+  * `brand` (kategori)
+  * `fuel` (kategori)
+  * `owner` (kategori)
+  * `km_driven` (numerik)
+  * `selling_price` (numerik, target)
 
-1. Menampilkan ringkasan statistik deskriptif serta mengamati untuk kolom numerik (`selling_price`).
-  -**Visualisasi Jumlah Mobil berdasarkan brand**
-   ![ss12](https://github.com/user-attachments/assets/a58385a3-eb34-4ebb-a4c5-9d460dcf3ece)
-  - **visualisasi Rata-rata harga jual berdasarkan merek mobil**
-  ![ss4](https://github.com/user-attachments/assets/ce9f613e-2093-4f0b-9a22-c57d316f4ead)
-  menganalisis **rata-rata harga jual mobil bekas** berdasarkan jumlah pemilik sebelumnya (_owner_), setelah dilakukan winsorization (penanganan outlier).
-  - **visualisasi Rata-rata harga jual berdasarkan jenis bahan bakar**
- ![ss5](https://github.com/user-attachments/assets/9e90e095-d776-4c15-85e8-7937f63e2a91)
-   Bar plot ini memvisualisasikan rata-rata harga jual ('selling_price') untuk mobil berdasarkan jenis bahan bakarnya ('fuel').
-  - **Visualisasi Rata-rata harga jual mobil bekas berdasarkan owner**
-  ![ss6](https://github.com/user-attachments/assets/d50c8e20-ac72-44cd-a7ff-fc3e993b3570)
-  Plot ini menunjukkan rata-rata harga jual ('selling_price') mobil berdasarkan kategori 'owner' (kepemilikan sebelumnya).
- 
-2. Menganalisis korelasi antar fitur numerik.
- - **Pair Plot of Target Features**
-  ![ss7](https://github.com/user-attachments/assets/0a697296-34c6-4c28-8900-2bae81e087c8)
-  PairPlot berikut adalah beberapa insight yang bisa didapatkan mengenai hubungan antara km_driven (jarak tempuh) dan selling_price (harga jual):   
- - **Correlation Matrix**
- ![ss8](https://github.com/user-attachments/assets/717d2471-f6b1-433f-b22d-a80e8b66b9db)
- Heatmap ini menampilkan matriks korelasi antara dua variabel: 'selling_price' dan 'km_driven'. Penggunaan .abs() pada kode menunjukkan bahwa nilai yang ditampilkan adalah nilai absolut dari koefisien korelasi. Artinya, kita melihat kekuatan hubungan tanpa mempertimbangkan arahnya (positif atau negatif).
-Berikut beberapa tahapan yang telah dilakukan:
+Dataset tidak memiliki missing values.
+
+---
+
+### Exploratory Data Analysis (EDA)
+
+* **Distribusi Brand Mobil**
+  ![Brand Distribution](https://github.com/user-attachments/assets/a58385a3-eb34-4ebb-a4c5-9d460dcf3ece)
+* **Rata-rata Harga Jual per Brand**
+  ![Avg Price by Brand](https://github.com/user-attachments/assets/ce9f613e-2093-4f0b-9a22-c57d316f4ead)
+* **Harga Jual Berdasarkan Bahan Bakar**
+  ![Avg Price by Fuel](https://github.com/user-attachments/assets/9e90e095-d776-4c15-85e8-7937f63e2a91)
+* **Harga Jual Berdasarkan Jumlah Kepemilikan**
+  ![Avg Price by Owner](https://github.com/user-attachments/assets/d50c8e20-ac72-44cd-a7ff-fc3e993b3570)
+* **Heatmap Korelasi**
+  ![Correlation](https://github.com/user-attachments/assets/717d2471-f6b1-433f-b22d-a80e8b66b9db)
+
+EDA ini membantu memahami pola dan hubungan antar fitur sebelum modeling.
+
+---
 
 ## Data Preparation
 
----
-#### Data Awal sebelum Handling Outlier
+### 1. Pemeriksaan Awal
 
-Langkah-langkah preprocessing yang dilakukan:
+* Dataset tidak memiliki missing values.
+* Terdapat 1.678 data duplikat → dihapus.
 
-1. **Pemisahan Target (Feature Engineering)**
+### 2. Pemisahan Target
 
-   * Memisahkan variabel target (`selling_price`) agar tidak ikut termodifikasi saat preprocessing.
+* Variabel target (`selling_price`) dipisahkan dari dataset agar tidak ikut termodifikasi pada tahap preprocessing.
 
-2. **Pembersihan Data**
+### 3. Deteksi & Penanganan Outlier
 
-   * Melakukan duplikat cek dan menemukan 1.678 data duplikat.
-   * Duplikat dihapus sehingga dataset menjadi 6.450 baris.
-   * Dataset tidak memiliki missing value, sehingga tidak diperlukan imputasi.
+* **Outlier pada `km_driven`**: 166 data ekstrem (contoh: taksi lama, data entry error).
+* **Outlier pada `selling_price`**: 167 data (mobil mewah/langka, data promo).
+* **Metode**: **Winsorization** berbasis IQR.
+* **Tujuan**: mengurangi pengaruh outlier ekstrem tanpa menghapus data penting.
 
-3. **Deteksi dan Penanganan Outlier**
+### 4. Encoding Fitur Kategorikal
 
-   * Outlier terdeteksi pada kolom `km_driven` dan `selling_price`.
-   * Digunakan metode **Winsorization** berbasis Interquartile Range (IQR), mengganti outlier ekstrem dengan nilai ambang batas bawah/atas.
-   * Tujuannya: mengurangi pengaruh ekstrem tanpa menghapus data.
-     ![ss1](https://github.com/user-attachments/assets/2bfbad08-5a87-4210-bc08-5cc5c358a238)
+* **One-Hot Encoding** (`pd.get_dummies`) untuk fitur: `brand`, `fuel`, dan `owner`.
 
-##### Distribusi Outlier
+### 5. Splitting Data
 
-###### `km_driven` (Jarak Tempuh)
+* Dataset dibagi menjadi **training set (90%)** dan **test set (10%)**.
+* Menghindari data leakage dan memastikan evaluasi model yang fair.
 
-* **Jumlah outlier**: 166
-* **Rentang nilai outlier**: 0 - 2.0 juta km
-* **Interpretasi**:
+### 6. Standardisasi Fitur Numerik
 
-  * Mobil tua (taksi/truk) atau kesalahan input data (contoh: 150,000 km → 1,500,000 km).
+* Fitur numerik `km_driven` di-standardisasi menggunakan **StandardScaler**.
+* **fit** dilakukan pada **training set** saja → **transform** pada **training** & **test set**.
 
-###### `selling_price` (Harga Jual)
+### Urutan & Alasan
 
-* **Jumlah outlier**: 167
-* **Rentang nilai outlier**: ₹0 - ₹10 juta
-* **Interpretasi**:
-
-  * Harga sangat rendah (promo/gratis) atau sangat tinggi (mobil mewah/langka).
-
----
-
-#### Data setelah Handling Duplicated & Missing Value
-
-Dataset yang sudah dibersihkan menjadi 6.450 baris.
-
-#### Data setelah Handling Outlier
-
-![ss2](https://github.com/user-attachments/assets/7803b120-3f2c-40cc-95c1-191200255db7)
-
-#### Penanganan Outlier dengan Winsorization
-
-Metode berbasis **IQR (Interquartile Range)**:
-
-* **Q1** = persentil ke-25
-* **Q3** = persentil ke-75
-* **IQR** = Q3 - Q1
-* Batas bawah: Q1 - 1.5 \* IQR
-* Batas atas: Q3 + 1.5 \* IQR
-
-Semua nilai di luar batas bawah/atas akan diganti dengan nilai batas tersebut.
-
-##### Tujuan:
-
-* Mengurangi pengaruh nilai ekstrem.
-* Menjaga integritas data (tidak kehilangan banyak data).
-* Meningkatkan stabilitas model.
+| No | Langkah          | Alasan                                                         |
+| -- | ---------------- | -------------------------------------------------------------- |
+| 1  | Pemisahan Target | Hindari target ikut termodifikasi.                             |
+| 2  | Pembersihan Data | Dataset bersih & konsisten.                                    |
+| 3  | Outlier Handling | Kurangi pengaruh data ekstrem tanpa buang data.                |
+| 4  | One-Hot Encoding | Model regresi tidak bisa handle data kategorikal langsung.     |
+| 5  | Splitting Data   | Cegah data leakage, evaluasi fair.                             |
+| 6  | StandardScaler   | Model (seperti KNN) sensitif pada skala → perlu standardisasi. |
 
 ---
 
-4. **Encoding Variabel Kategorikal**
+## Modeling
 
-   * Menggunakan **One-Hot Encoding** (`pd.get_dummies`) pada fitur kategorikal: `fuel`, `owner`, dan `brand`.
-   * Encoding dilakukan setelah target dipisahkan agar target tidak ikut ter-encode.
+### Algoritma yang Digunakan
 
-5. **Splitting Data**
+1. **K-Nearest Neighbors (KNN)**
 
-   * Dataset dibagi menjadi **training set dan test set** (rasio 90:10) menggunakan `train_test_split`.
-   * Ini penting agar evaluasi model dilakukan pada data yang **belum pernah dilihat**.
+   * **Kelebihan**: Sederhana, efektif untuk data non-linear.
+   * **Kekurangan**: Sensitif pada skala data & memori.
 
-6. **Standardisasi Fitur Numerik**
+2. **Random Forest**
 
-   * Fitur numerik (`km_driven`) distandarisasi menggunakan **StandardScaler**.
-   * Standardisasi dilakukan **setelah splitting** untuk mencegah data leakage (fit hanya pada training, lalu transform ke test).
+   * **Kelebihan**: Robust terhadap outlier, menangani non-linearitas & interaksi fitur.
+   * **Kekurangan**: Interpretasi lebih sulit dibanding model linear.
 
----
+3. **AdaBoost**
 
-### Urutan dan Alasan Pemilihan Teknik (Versi Perbaikan)
+   * **Kelebihan**: Boosting fokus pada data sulit.
+   * **Kekurangan**: Lebih sensitif pada outlier & noise.
 
-| No | Teknik                       | Alasan                                                                 |
-| -- | ---------------------------- | ---------------------------------------------------------------------- |
-| 1  | Pemisahan Target             | Agar target tidak ikut termodifikasi selama preprocessing.             |
-| 2  | Pembersihan Data             | Menghilangkan duplikat untuk dataset yang lebih konsisten.             |
-| 3  | Deteksi & Penanganan Outlier | Mengurangi distorsi akibat data ekstrem.                               |
-| 4  | One-Hot Encoding             | Model regresi tidak bisa menangani data kategorikal secara langsung.   |
-| 5  | Splitting                    | Menghindari data leakage dan memastikan evaluasi yang adil.            |
-| 6  | StandardScaler               | Menyamakan skala fitur numerik agar model seperti KNN bekerja optimal. |
+### Improvement: Hyperparameter Tuning
 
----
+* **Random Forest**: Tuning `n_estimators`, `max_depth`, `min_samples_split`.
+* **AdaBoost**: Tuning `n_estimators`, `learning_rate`.
+* **Metode**: **GridSearchCV** dengan 5-fold cross-validation.
 
----
+### Model Terbaik
 
-## Modelling
-
-Model yang digunakan adalah:
-
-Beberapa algoritma regresi digunakan untuk membangun model prediktif:
-
-1. **K-Nearest Neighbors (KNN)**:
-K-Nearest Neighbors (KNN) merupakan salah satu algoritma supervised learning yang digunakan baik untuk klasifikasi maupun regresi. Pada kasus regresi, KNN memprediksi nilai target dengan menghitung rata-rata dari nilai-nilai target K tetangga terdekat yang paling mirip (berdasarkan jarak) dengan sampel yang akan diprediksi.
-
-Pada proyek ini, model KNN digunakan dengan menggunakan fungsi `KNeighborsRegressor` dari library scikit-learn. Parameter utama yang digunakan adalah sebagai berikut:
-
-* `n_neighbors = 10`: Parameter ini menentukan jumlah tetangga terdekat yang digunakan untuk menghitung nilai prediksi. Pemilihan nilai ini mempertimbangkan keseimbangan antara overfitting (jika nilai terlalu kecil) dan underfitting (jika nilai terlalu besar).
-* `metric = 'minkowski'`: Merupakan metode pengukuran jarak antar titik data. Dalam kasus ini digunakan jarak Euclidean karena nilai default `p = 2`.
-
-Algoritma ini sangat bergantung pada **skala fitur**, sehingga seluruh fitur numerik distandarisasi menggunakan `StandardScaler` sebelum proses pelatihan. KNN memiliki keunggulan dari sisi kesederhanaan dan interpretasi hasil, namun dapat menjadi lambat dalam prediksi ketika jumlah data besar karena menghitung jarak terhadap seluruh titik latih.
+* Berdasarkan RMSE & R², **Random Forest** (setelah tuning) memberikan hasil paling stabil dan akurat.
+* Random Forest lebih cocok menangani data tabular & fitur-fitur yang saling berinteraksi.
 
 ---
-
-2. **Random Forest**:
-Random Forest adalah algoritma ensemble yang dibangun berdasarkan konsep **bagging** (Bootstrap Aggregating). Model ini terdiri dari sekumpulan decision tree yang dilatih secara independen dari sampel acak data, dan hasil prediksinya dirata-ratakan untuk regresi. Dengan pendekatan ini, Random Forest dapat **mengurangi variansi model**, sehingga lebih tahan terhadap overfitting dibandingkan dengan single decision tree.
-
-Model ini dibangun menggunakan `RandomForestRegressor` dari scikit-learn dengan parameter awal sebagai berikut:
-
-* `n_estimators = 50`: Jumlah pohon yang akan dibangun dalam model. Semakin banyak pohon, hasil rata-rata lebih stabil, namun memerlukan waktu komputasi lebih besar.
-* `max_depth = 16`: Kedalaman maksimum setiap pohon. Batasan ini digunakan untuk menghindari overfitting dengan membatasi kompleksitas pohon.
-
-Keunggulan Random Forest meliputi kemampuannya untuk:
-
-* Menangani **fitur-fitur non-linear** dan interaksi antar fitur.
-* Memberikan **importance score** terhadap masing-masing fitur, yang berguna dalam analisis lebih lanjut.
-
-Namun, performa model sangat bergantung pada pemilihan parameter seperti kedalaman pohon dan jumlah estimators, sehingga proses tuning sangat diperlukan untuk mendapatkan performa optimal.
-
----
-
-3. **AdaBoost**:
-
-  AdaBoost (Adaptive Boosting) adalah algoritma boosting yang membangun sekumpulan **weak learner** secara berurutan, di mana setiap model selanjutnya difokuskan untuk memperbaiki kesalahan dari model sebelumnya. Model akhir merupakan kombinasi dari seluruh weak learner dengan bobot berdasarkan performa masing-masing.
-
-Model ini dibangun menggunakan `AdaBoostRegressor` dari scikit-learn dengan parameter sebagai berikut:
-
-* `learning_rate = 0.05`: Parameter ini mengontrol kontribusi masing-masing weak learner terhadap model akhir. Nilai yang lebih kecil membuat pelatihan lebih lambat tetapi bisa meningkatkan generalisasi model.
-* `n_estimators = 50`: Jumlah total weak learners (biasanya berupa decision tree sederhana) yang akan dilatih secara bertahap.
-
-Kelebihan utama AdaBoost terletak pada kemampuannya meningkatkan akurasi model sederhana (misalnya decision stump), namun algoritma ini juga **sensitif terhadap outlier dan noise**, karena upaya terus-menerus memperbaiki kesalahan bisa menyebabkan overfitting pada sampel tidak representatif.
-
----
-
-4. **Hyperparameter Tuning**:
-
-   Untuk meningkatkan performa model, dilakukan proses **hyperparameter tuning** menggunakan metode `GridSearchCV`. Metode ini menguji seluruh kombinasi dari parameter yang ditentukan dengan proses cross-validation untuk memilih parameter terbaik berdasarkan metrik performa rata-rata.
-
-Parameter yang dituning meliputi:
-
-* **Random Forest**:
-
-  * `n_estimators`: Banyaknya pohon, nilai diuji antara 50 hingga 150.
-  * `max_depth`: Kedalaman maksimum pohon, diuji antara 8 hingga 32.
-  * `min_samples_split`: Jumlah minimum sampel untuk membagi node.
-  * `min_samples_leaf`: Jumlah minimum sampel di setiap daun pohon.
-
-* **AdaBoost**:
-
-  * `n_estimators`: Jumlah weak learners.
-  * `learning_rate`: Laju pembelajaran yang menentukan seberapa besar kontribusi masing-masing learner terhadap prediksi akhir.
-
-GridSearchCV menggunakan 5-fold cross-validation dalam setiap kombinasi parameter untuk menghindari overfitting terhadap data pelatihan, dan hasil terbaik digunakan untuk evaluasi pada data uji.
-
----
-
-Model dilatih pada data training, dan digunakan untuk memprediksi harga pada data test. Proses pelatihan berlangsung dengan efisien dan cepat karena linear regression bersifat sederhana dan memiliki kompleksitas rendah.
 
 ## Evaluation
 
-Evaluasi dilakukan menggunakan metrik regresi berikut:
-* **Root Mean Squared Error (RMSE)**: Mengukur rata-rata kesalahan prediksi model. Semakin rendah nilai RMSE, semakin baik performa model.
-* **R² Score**: Menunjukkan proporsi variansi dalam data target yang dapat dijelaskan oleh model. Nilai R² mendekati 1 menunjukkan model yang baik.
+### Metrik Evaluasi
 
-### Hasil Evaluasi:
-| Model                     | MSE (Train)      | MSE (Test)     |
-| :------------------------ | :--------------- | :------------- |
-| KNN                       | 35,702,044.93    | 45,486,426.17  |
-| Random Forest             | 27,268,530.11    | 47,109,176.79  |
-| Boosting (Original)       | 57,408,545.46    | 56,083,611.26  |
+1. **Root Mean Squared Error (RMSE)**
 
-![ss9](https://github.com/user-attachments/assets/2e991d43-5743-4e12-b52b-2f8fed2aa85c)
+   $$
+   \text{RMSE} = \sqrt{\frac{1}{n} \sum (y_{true} - y_{pred})^2}
+   $$
 
-*Visualisasi MSE*
+   → Mengukur rata-rata kesalahan prediksi, makin kecil makin baik.
+
+2. **R² Score**
+
+   $$
+   R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
+   $$
+
+   → Proporsi variansi yang dijelaskan model, makin mendekati 1 makin baik.
+
+### Hasil Evaluasi
 
 | Model               | RMSE (Train) | RMSE (Test) | R² (Train) | R² (Test) |
-| :------------------ | :----------- | :---------- | :--------- | :-------- |
+| ------------------- | ------------ | ----------- | ---------- | --------- |
 | Random Forest Tuned | 188,352.78   | 215,080.72  | 0.60       | 0.49      |
-| Boosting Tuned      | 189,749.05   | 207,779.42  | 0.59       | 0.52      |
+| AdaBoost Tuned      | 189,749.05   | 207,779.42  | 0.59       | 0.52      |
+
+### Visualisasi Hasil
 
 ![ss10](https://github.com/user-attachments/assets/16e5947a-c2da-406e-9627-5627c7fee222)
 
-*Visualisasi RMSE & R2*
+---
 
-Hasil menunjukkan bahwa model cukup baik dalam menjelaskan variasi harga mobil bekas. Namun, masih terdapat kemungkinan untuk meningkatkan performa dengan algoritma lain seperti Ridge Regression, Lasso Regression, XGBoost, serta melakukan hyperparameter tuning.
+## Conclusion & Recommendation
 
-## Conclusion and Future Work
+### Ringkasan
 
-Model linear regression berhasil membangun prediksi harga mobil bekas dengan akurasi yang cukup tinggi (R² = 0.67). Fitur-fitur seperti `km_driven`, `brand`, dan `km_driven` menjadi faktor dominan dalam penentuan harga.
-Model ini memberikan dasar yang baik untuk pengembangan sistem pricing otomatis dalam platform jual-beli mobil bekas.
+* Model **Random Forest** terpilih sebagai solusi terbaik.
+* Model mampu memprediksi harga mobil bekas dengan cukup baik (R² test = 0.49).
+* Fitur `brand`, `km_driven`, dan `owner` paling berpengaruh.
 
-> Model yang dikembangkan telah mencapai standar Minimum Viable Product (MVP) yang ditetapkan, sehingga dapat segera digabungkan dengan infrastruktur penilaian kredit yang sudah berjalan.
+### Rekomendasi Implementasi
+
+1. Gunakan model Random Forest untuk membantu dealer/penjual mobil bekas menentukan harga jual.
+2. Lakukan monitoring & retraining berkala agar model adaptif terhadap tren pasar.
+3. Eksperimen lanjutan: Tambah data historis & fitur kondisi mobil (misalnya: tahun produksi).
+
+---
+
