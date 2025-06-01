@@ -155,9 +155,9 @@ EDA ini membantu memahami pola dan hubungan antar fitur sebelum modeling.
 
 2. **R² Score**
 
-   $$
-   R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
-   $$
+$$
+R^2 = 1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}
+$$
 
    → Proporsi variansi yang dijelaskan model, makin mendekati 1 makin baik.
 
