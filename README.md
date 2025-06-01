@@ -49,23 +49,30 @@ Dataset tidak memiliki missing values.
 
 ### Exploratory Data Analysis (EDA)
 
+Setelah memahami gambaran umum dataset melalui `cars.info()` dan `cars.describe()`, kita melanjutkan ke **Exploratory Data Analysis (EDA)**. EDA membantu kita menganalisis distribusi data, menemukan hubungan antar variabel, dan mengungkap insight yang tersembunyi sebelum membangun model. Berikut langkah-langkah yang telah dijalankan:  
+
 * **Distribusi Brand Mobil**
+  
   ![Brand Distribution](https://github.com/user-attachments/assets/a58385a3-eb34-4ebb-a4c5-9d460dcf3ece)
 Visualisasi ini menunjukan distribusi jumlah mobil berdasarkan brand
 
   * **Rata-rata Harga Jual per Brand**
+    
   ![Avg Price by Brand](https://github.com/user-attachments/assets/ce9f613e-2093-4f0b-9a22-c57d316f4ead)
 jumlah pemilik sebelumnya (_owner_), setelah dilakukan winsorization (penanganan outlier).
 
 * **Harga Jual Berdasarkan Bahan Bakar**
+  
   ![Avg Price by Fuel](https://github.com/user-attachments/assets/9e90e095-d776-4c15-85e8-7937f63e2a91)
 Bar plot ini memvisualisasikan rata-rata harga jual ('selling_price') untuk mobil berdasarkan jenis bahan bakarnya ('fuel').
   
 * **Harga Jual Berdasarkan Jumlah Kepemilikan**
+  
   ![Avg Price by Owner](https://github.com/user-attachments/assets/d50c8e20-ac72-44cd-a7ff-fc3e993b3570)
 Plot ini menunjukkan rata-rata harga jual ('selling_price') mobil berdasarkan kategori 'owner' (kepemilikan sebelumnya).
 
 * **Heatmap Korelasi**
+  
   ![Correlation](https://github.com/user-attachments/assets/717d2471-f6b1-433f-b22d-a80e8b66b9db)
 Heatmap ini menampilkan matriks korelasi antara dua variabel: 'selling_price' dan 'km_driven'. Penggunaan .abs() pada kode menunjukkan bahwa nilai yang ditampilkan adalah nilai absolut dari koefisien korelasi. Artinya, kita melihat kekuatan hubungan tanpa mempertimbangkan arahnya (positif atau negatif).
 
