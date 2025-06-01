@@ -56,7 +56,7 @@ Setelah memahami gambaran umum dataset melalui `cars.info()` dan `cars.describe(
   ![Brand Distribution](https://github.com/user-attachments/assets/a58385a3-eb34-4ebb-a4c5-9d460dcf3ece)
 Visualisasi ini menunjukan distribusi jumlah mobil berdasarkan brand
 
-  * **Rata-rata Harga Jual per Brand**
+* **Rata-rata Harga Jual per Brand**
     
   ![Avg Price by Brand](https://github.com/user-attachments/assets/ce9f613e-2093-4f0b-9a22-c57d316f4ead)
 jumlah pemilik sebelumnya (_owner_), setelah dilakukan winsorization (penanganan outlier).
@@ -115,7 +115,7 @@ EDA ini membantu memahami pola dan hubungan antar fitur sebelum modeling.
   
 ![ss1](https://github.com/user-attachments/assets/2bfbad08-5a87-4210-bc08-5cc5c358a238)
 
-#### Data setelah Handling Outlier
+* **Data setelah Handling Outlier**
 
 ![ss2](https://github.com/user-attachments/assets/7803b120-3f2c-40cc-95c1-191200255db7)
 
