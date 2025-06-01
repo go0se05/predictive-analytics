@@ -5,6 +5,7 @@
 ## Domain Proyek
 
 Pasar mobil bekas terus mengalami pertumbuhan yang signifikan seiring dengan meningkatnya kebutuhan kendaraan pribadi yang terjangkau. Menentukan harga jual mobil bekas menjadi tantangan, karena bergantung pada berbagai faktor seperti merek, model, jarak tempuh, dan kepemilikan sebelumnya. Kesalahan dalam estimasi harga dapat berdampak pada kerugian finansial dan efisiensi transaksi.
+
 Dengan perkembangan teknologi AI, khususnya machine learning, memungkinkan pembuatan model prediktif yang lebih akurat dan adaptif. Model ini sangat dibutuhkan oleh dealer, konsumen, dan pelaku industri otomotif untuk mengambil keputusan yang lebih cerdas dan efisien.
 
 ---
@@ -54,34 +55,54 @@ Dataset diperoleh dari Kaggle: [Cars Dataset](https://www.kaggle.com/datasets/ma
 
 Setelah memahami gambaran umum dataset melalui `cars.info()` dan `cars.describe()`, kita melanjutkan ke **Exploratory Data Analysis (EDA)**. EDA membantu kita menganalisis distribusi data, menemukan hubungan antar variabel, dan mengungkap insight yang tersembunyi sebelum membangun model. Berikut langkah-langkah yang telah dijalankan:  
 
+
 * **Visualisasi Ditribusi Outlier**
+
 ![ss1](https://github.com/user-attachments/assets/2bfbad08-5a87-4210-bc08-5cc5c358a238)
+
 Visuaslisasi diatas menunjukan outlier terdeteksi pada data
+
+---
 
 * **Distribusi Brand Mobil**
   
 ![Brand Distribution](https://github.com/user-attachments/assets/971b6736-5b0d-4ba8-a284-9107f1efbf38)
+
 Visualisasi ini menunjukan distribusi jumlah mobil berdasarkan brand
+
+---
 
 * **Rata-rata Harga Jual per Brand**
   
 ![ss4](https://github.com/user-attachments/assets/f2460a55-5905-4101-a1da-249556d70dc5)
+
 jumlah pemilik sebelumnya (_owner_), setelah dilakukan winsorization (penanganan outlier).
 
+---
+
 * **Harga Jual Berdasarkan Bahan Bakar**
-  
+
 ![ss5](https://github.com/user-attachments/assets/b4a74b0a-d313-47d8-af91-1ab205ec085f)
+
 Bar plot ini memvisualisasikan rata-rata harga jual ('selling_price') untuk mobil berdasarkan jenis bahan bakarnya ('fuel').
-  
+
+---
+
 * **Harga Jual Berdasarkan Jumlah Kepemilikan**
   
 ![ss6](https://github.com/user-attachments/assets/af367983-f104-49fb-aac8-fd360fd1e640)
+
 Plot ini menunjukkan rata-rata harga jual ('selling_price') mobil berdasarkan kategori 'owner' (kepemilikan sebelumnya).
+
+---
 
 * **Pair Plot Target Feature**
   
 ![ss7](https://github.com/user-attachments/assets/9ea52182-b090-4d23-b2b8-fa691ea4b820)
+
 Memvisualisasikan distribusi masing-masing variabel dan mengidentifikasi pola/korelasi antara dua variabel numerik
+
+---
 
 * **Heatmap Korelasi**
   
