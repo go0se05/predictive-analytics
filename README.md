@@ -81,95 +81,105 @@ Berikut beberapa tahapan yang telah dilakukan:
 
 ## Data Preparation
 
-#### Data awal sebelum Handling Outlier
+---
+#### Data Awal sebelum Handling Outlier
+
 Langkah-langkah preprocessing yang dilakukan:
 
-1. **Pembersihan Data**:
-   * Melakukan duplikat cek dan menemukan 1678 data duplikat
-   *  Melakukan drop duplikat
-   * Dataset tidak memiliki missing value sehingga tidak diperlukan teknik imputasi atau penghapusan data.
+1. **Pemisahan Target (Feature Engineering)**
 
-2. **Deteksi dan Penanganan Outlier**:
+   * Memisahkan variabel target (`selling_price`) agar tidak ikut termodifikasi saat preprocessing.
+
+2. **Pembersihan Data**
+
+   * Melakukan duplikat cek dan menemukan 1.678 data duplikat.
+   * Duplikat dihapus sehingga dataset menjadi 6.450 baris.
+   * Dataset tidak memiliki missing value, sehingga tidak diperlukan imputasi.
+
+3. **Deteksi dan Penanganan Outlier**
 
    * Outlier terdeteksi pada kolom `km_driven` dan `selling_price`.
-   * Digunakan metode **Winsorization** berbasis Interquartile Range (IQR), yang mengganti outlier ekstrem dengan nilai ambang batas bawah/atas.
-   * Tujuannya untuk mengurangi pengaruh ekstrem tanpa membuang data.
-   ![ss1](https://github.com/user-attachments/assets/2bfbad08-5a87-4210-bc08-5cc5c358a238)
-### Distribusi Outlier
-#### `km_driven` (Jarak Tempuh)
-- **Jumlah outlier**: 166
-- **Rentang nilai outlier**: 0 - 2.0 juta km
-- **Interpretasi**:
-  - Mobil dengan jarak tempuh > 1.5 juta km termasuk sangat ekstrim
-  - Kemungkinan penyebab:
-    - Mobil tua yang masih digunakan (contoh: taksi/truk)
-    - Kesalahan input data (misal: 150,000 km → 1,500,000 km)
+   * Digunakan metode **Winsorization** berbasis Interquartile Range (IQR), mengganti outlier ekstrem dengan nilai ambang batas bawah/atas.
+   * Tujuannya: mengurangi pengaruh ekstrem tanpa menghapus data.
+     ![ss1](https://github.com/user-attachments/assets/2bfbad08-5a87-4210-bc08-5cc5c358a238)
 
-#### `selling_price` (Harga Jual)
-- **Jumlah outlier**: 167  
-- **Rentang nilai outlier**: ₹0 - ₹10 juta
-- **Interpretasi**:
-  - Harga ≈₹0 mungkin:
-    - Giveaway/iklan promo
-    - Kesalahan input
-  - Harga >₹8 juta biasanya:
-    - Mobil mewah bekas (BMW, Mercedes)
-    - Mobil klasik langka
+##### Distribusi Outlier
+
+###### `km_driven` (Jarak Tempuh)
+
+* **Jumlah outlier**: 166
+* **Rentang nilai outlier**: 0 - 2.0 juta km
+* **Interpretasi**:
+
+  * Mobil tua (taksi/truk) atau kesalahan input data (contoh: 150,000 km → 1,500,000 km).
+
+###### `selling_price` (Harga Jual)
+
+* **Jumlah outlier**: 167
+* **Rentang nilai outlier**: ₹0 - ₹10 juta
+* **Interpretasi**:
+
+  * Harga sangat rendah (promo/gratis) atau sangat tinggi (mobil mewah/langka).
+
 ---
-#### Data sesudah Handling Duplicated & Missing Value
 
-Setelah teridentifikasi duplikat data, kita melakukan **drop_duplicated** sebagai teknik penanganannya dan data setelah dilakukannya drop duplicated kini menjadi 6450
+#### Data setelah Handling Duplicated & Missing Value
 
-#### Data sesudah Handling outlier
+Dataset yang sudah dibersihkan menjadi 6.450 baris.
+
+#### Data setelah Handling Outlier
 
 ![ss2](https://github.com/user-attachments/assets/7803b120-3f2c-40cc-95c1-191200255db7)
-## Penanganan Outlier dengan Winsorization
 
-Setelah outlier teridentifikasi, kita melakukan **Winsorization** sebagai teknik penanganannya. Berbeda dengan metode trimming (menghapus data), Winsorization mengganti outlier dengan nilai ambang batas tertentu.
+#### Penanganan Outlier dengan Winsorization
 
-Metode yang digunakan berbasis **Interquartile Range (IQR)**:
-- **Q1 (Kuartil 1)**: Nilai pada persentil ke-25
-- **Q3 (Kuartil 3)**: Nilai pada persentil ke-75
-- **IQR = Q3 - Q1**
+Metode berbasis **IQR (Interquartile Range)**:
 
-Batas bawah dan atas ditentukan dengan rumus:
-- Lower Bound = Q1 - 1.5 * IQR
-- Upper Bound = Q3 + 1.5 * IQR
+* **Q1** = persentil ke-25
+* **Q3** = persentil ke-75
+* **IQR** = Q3 - Q1
+* Batas bawah: Q1 - 1.5 \* IQR
+* Batas atas: Q3 + 1.5 \* IQR
 
-Setiap nilai yang lebih rendah dari batas bawah akan diubah menjadi nilai batas bawah, begitu juga dengan yang lebih tinggi dari batas atas.
+Semua nilai di luar batas bawah/atas akan diganti dengan nilai batas tersebut.
 
-### Tujuan:
-- Mengurangi pengaruh outlier ekstrem tanpa mengorbankan jumlah data.
-- Menjaga integritas data agar tetap representatif.
-- Meningkatkan performa dan stabilitas model regresi di tahap selanjutnya.
+##### Tujuan:
 
-Metode ini sangat cocok jika data memiliki outlier tapi kita tidak ingin kehilangan informasi sebanyak saat menggunakan metode penghapusan (drop).
+* Mengurangi pengaruh nilai ekstrem.
+* Menjaga integritas data (tidak kehilangan banyak data).
+* Meningkatkan stabilitas model.
 
-3. **Feature Engineering**:
-   - Memisahkan target agar tidak ikut encode
+---
 
-4. **Standarisasi Fitur Numerik**:
-   * Fitur numerik seperti `km_driven` dinormalisasi menggunakan **StandardScaler** dari scikit-learn.
-   * Ini dilakukan agar model yang sensitif terhadap skala fitur (seperti KNN) dapat bekerja secara optimal, karena setiap fitur memiliki skala distribusi yang berbeda.
-   * Proses standarisasi dilakukan **setelah** splitting data untuk menghindari kebocoran data (data leakage).
+4. **Encoding Variabel Kategorikal**
 
-5. **Encoding**:
-   - Menggunakan `pd.get_dummies`. untuk fitur kategorikal: `fuel`, `owner`, dan `brand`.
+   * Menggunakan **One-Hot Encoding** (`pd.get_dummies`) pada fitur kategorikal: `fuel`, `owner`, dan `brand`.
+   * Encoding dilakukan setelah target dipisahkan agar target tidak ikut ter-encode.
 
-6. **Splitting Data**:
-   * Dataset dibagi menjadi **training set dan test set** dengan rasio 90:10 menggunakan `train_test_split`.
-   * Tujuan splitting adalah untuk memastikan evaluasi model dilakukan pada data yang belum pernah dilihat sebelumnya.
+5. **Splitting Data**
 
-### Urutan dan Alasan Pemilihan Teknik:
+   * Dataset dibagi menjadi **training set dan test set** (rasio 90:10) menggunakan `train_test_split`.
+   * Ini penting agar evaluasi model dilakukan pada data yang **belum pernah dilihat**.
 
-| No | Teknik                       | Alasan                                                               |
-| -- | ---------------------------- | -------------------------------------------------------------------- |
-| 1  | Pembersihan Data             | Tidak ada nilai kosong, jadi tidak perlu imputasi.                   |
-| 2  | Deteksi & Penanganan Outlier | Menghindari distorsi akibat data ekstrem.                            |
-| 3  | One-Hot Encoding             | Model regresi tidak bisa menangani data kategorikal langsung.        |
-| 4  | Feature Engineering          | Memisahkan target agar tidak ikut termodifikasi saat preprocessing.  |
-| 5  | StandardScaler               | Menyamaratakan skala fitur numerik, penting untuk model seperti KNN. |
-| 6  | Splitting                    | Menghindari kebocoran data, memastikan evaluasi model yang adil.     |
+6. **Standardisasi Fitur Numerik**
+
+   * Fitur numerik (`km_driven`) distandarisasi menggunakan **StandardScaler**.
+   * Standardisasi dilakukan **setelah splitting** untuk mencegah data leakage (fit hanya pada training, lalu transform ke test).
+
+---
+
+### Urutan dan Alasan Pemilihan Teknik (Versi Perbaikan)
+
+| No | Teknik                       | Alasan                                                                 |
+| -- | ---------------------------- | ---------------------------------------------------------------------- |
+| 1  | Pemisahan Target             | Agar target tidak ikut termodifikasi selama preprocessing.             |
+| 2  | Pembersihan Data             | Menghilangkan duplikat untuk dataset yang lebih konsisten.             |
+| 3  | Deteksi & Penanganan Outlier | Mengurangi distorsi akibat data ekstrem.                               |
+| 4  | One-Hot Encoding             | Model regresi tidak bisa menangani data kategorikal secara langsung.   |
+| 5  | Splitting                    | Menghindari data leakage dan memastikan evaluasi yang adil.            |
+| 6  | StandardScaler               | Menyamakan skala fitur numerik agar model seperti KNN bekerja optimal. |
+
+---
 
 ---
 
