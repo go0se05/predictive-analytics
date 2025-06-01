@@ -317,3 +317,4 @@ Hasil menunjukkan bahwa model cukup baik dalam menjelaskan variasi harga mobil b
 
 ---
 
+> Model yang dikembangkan telah mencapai standar Minimum Viable Product (MVP) yang ditetapkan, sehingga dapat segera digabungkan dengan infrastruktur penilaian kredit yang sudah berjalan.
